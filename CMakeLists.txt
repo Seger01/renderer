@@ -20,10 +20,6 @@ include_directories(${INC_DIR})
 # add the /shaders directory to the include path
 include_directories(${CMAKE_SOURCE_DIR}/shaders_h)
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC ${INC_DIR}
-)
-
 # Collect all source files recursively
 file(GLOB_RECURSE SOURCES ${SRC_DIR}/*.cpp ${SRC_DIR}/*.c)
 
@@ -32,6 +28,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # Add the executable
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC ${INC_DIR}
+)
 
 # Include and build external libraries
 file(GLOB EXTERNAL_PROJECTS ${EXTERNAL_DIR}/*)
