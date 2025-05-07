@@ -1,6 +1,6 @@
-#include "NormColor.h"
+#include "SML/NormColor.h"
 
-#include "Color.h"
+#include "SML/Color.h"
 
 namespace SML
 {

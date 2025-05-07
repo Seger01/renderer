@@ -1,17 +1,17 @@
-#include "Window.h"
-#include <glad/glad.h>
+#include "SML/Window.h"
+#include <SML/glad/glad.h>
 
 #include <GLFW/glfw3.h>
 
+#include <SML/stb_image/stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <stb_image/stb_image.h>
 
 #include <iostream>
 
-#include "Point.h"
-#include "Vector2.h"
+#include "SML/Point.h"
+#include "SML/Vector2.h"
 
 namespace SML
 {

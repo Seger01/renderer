@@ -1,12 +1,12 @@
-#include "Shape.h"
+#include "SML/Shape.h"
 
-#include <glad/glad.h>
+#include <SML/glad/glad.h>
 
 #include <GLFW/glfw3.h>
+#include <SML/stb_image/stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <stb_image/stb_image.h>
 
 namespace SML
 {

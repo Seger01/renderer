@@ -1,4 +1,4 @@
-#include "TexturedQuad.h"
+#include "SML/TexturedQuad.h"
 
 namespace SML
 {

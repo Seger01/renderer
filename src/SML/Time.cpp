@@ -3,7 +3,7 @@
  * @brief Time class implementation file.
  */
 
-#include "Time.h"
+#include "SML/Time.h"
 
 // Initialize static members
 namespace SML

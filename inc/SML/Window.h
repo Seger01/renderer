@@ -1,13 +1,13 @@
 #pragma once
 
-#include <glad/glad.h>
+#include <SML/glad/glad.h>
 
-#include "Color.h"
 #include "GLFW/glfw3.h"
-#include "Texture.h"
+#include "SML/Color.h"
+#include "SML/Texture.h"
 
-#include "Point.h"
-#include "Vector2.h"
+#include "SML/Point.h"
+#include "SML/Vector2.h"
 
 namespace SML
 {

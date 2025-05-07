@@ -1,28 +1,28 @@
-#include "Renderer.h"
+#include "SML/Renderer.h"
 
-#include <glad/glad.h>
+#include <SML/glad/glad.h>
 
-#include "Font.h"
 #include "GLFW/glfw3.h"
+#include "SML/Font.h"
 
-#include "Window.h"
+#include "SML/Window.h"
 
-#include <glad/glad.h>
+#include <SML/glad/glad.h>
 
 #include <GLFW/glfw3.h>
+#include <SML/stb_image/stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <stb_image/stb_image.h>
 
 #include <string>
 
-#include "Color.h"
-#include "Rect.h"
-#include "Renderer.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "Window.h"
+#include "SML/Color.h"
+#include "SML/Rect.h"
+#include "SML/Renderer.h"
+#include "SML/Shader.h"
+#include "SML/Texture.h"
+#include "SML/Window.h"
 
 namespace SML
 {

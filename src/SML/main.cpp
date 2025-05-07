@@ -1,22 +1,22 @@
-#include <glad/glad.h>
+#include <SML/glad/glad.h>
 
 #include <GLFW/glfw3.h>
+#include <SML/stb_image/stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <stb_image/stb_image.h>
 
 #include <iostream>
 #include <string>
 #include <thread>
 
-#include "Color.h"
-#include "Font.h"
-#include "Rect.h"
-#include "Renderer.h"
-#include "Texture.h"
-#include "Time.h"
-#include "Window.h"
+#include "SML/Color.h"
+#include "SML/Font.h"
+#include "SML/Rect.h"
+#include "SML/Renderer.h"
+#include "SML/Texture.h"
+#include "SML/Time.h"
+#include "SML/Window.h"
 
 #include "ft2build.h"
 #include FT_FREETYPE_H
