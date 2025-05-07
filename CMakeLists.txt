@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # Project name and version
-project(indproj VERSION 1.0 LANGUAGES C CXX)
+project(renderer VERSION 1.0 LANGUAGES C CXX)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -20,14 +20,18 @@ include_directories(${INC_DIR})
 # add the /shaders directory to the include path
 include_directories(${CMAKE_SOURCE_DIR}/shaders_h)
 
+target_include_directories(${PROJECT_NAME}
+    PUBLIC ${INC_DIR}
+)
+
 # Collect all source files recursively
 file(GLOB_RECURSE SOURCES ${SRC_DIR}/*.cpp ${SRC_DIR}/*.c)
 
 # Set the output directory for the executable
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # Add the executable
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 # Include and build external libraries
 file(GLOB EXTERNAL_PROJECTS ${EXTERNAL_DIR}/*)
