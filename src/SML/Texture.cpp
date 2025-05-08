@@ -40,6 +40,15 @@ Texture::Texture(const std::vector<char>& data, const Vector2& size) : mSize(siz
     loaded = true;
 }
 
+// Added destructor to free up OpenGL texture resource
+Texture::~Texture()
+{
+    if (loaded && mTextureID != 0)
+    {
+        glDeleteTextures(1, &mTextureID);
+    }
+}
+
 void Texture::activate() const
 {
     if (!loaded)

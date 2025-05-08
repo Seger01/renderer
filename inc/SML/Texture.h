@@ -14,7 +14,7 @@ public:
     Texture();
     Texture(const std::string& filePath);
     Texture(const std::vector<char>& data, const Vector2& size);
-    virtual ~Texture() = default;
+    ~Texture();
 
     void activate() const;
 
