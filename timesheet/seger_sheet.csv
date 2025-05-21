@@ -1,0 +1,17 @@
+Date,Time,Duration(in hours),Activity
+2025-01-21, 15:00, 6   , Started the opengl.com introduction and project setup; began the transformations chapter
+2025-01-22, 11:00, 4   , Finihed learnopengl.com introduction and began on the lighting section although very confused by the phong lighting model
+2025-01-23, 10:00, 1.5 , Worked my way through most of the lighting section
+2025-01-26, 10:00, 4   , Finished the lighting section
+2025-01-26, 10:00, 4   , Started and finished the model loading section
+2025-02-09, 10:00, 4   , Stencil testing and depth testing and blending
+2025-02-10, 19:30, 2   , Started working on FML(Flexible Media Library)
+2025-02-12, 19:30, 2.5 , Worked on texture scaling and movement
+2025-02-13, 19:30, 2.5 , Reworked the texture scaling and movement and added colored square rendering and rotation of squares and textures
+2025-02-15, 10:00, 3   , Changed the texture scaling and rotation to be able to set the center of rotation. also added color filtering on textures and the ability to make rectangles that are not filled.
+2025-02-16, 15:00, 2   , Worked on circle rendering (source: The Cherno (youtube) https://www.youtube.com/watch?v=xf7Y988cPRk)
+2025-02-19, 19:15, 1.5 , Reworked renderer naming and added viewport support
+2025-05-04, 14:00, 3.0 , Started working on the Text rendering system
+2025-05-07, 20:00, 2.5 , Finished basic text rendering and started on porting to game engine
+2025-05-08, 20:30, 2.25, Chagned Game engine structure to allow for render replacement 
+2025-05-08, 19:30, 3   , Got renderer somewhat functioning with game engine
