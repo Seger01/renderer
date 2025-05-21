@@ -22,8 +22,8 @@ public:
     Renderer(Window& window);
     virtual ~Renderer() = default;
 
-    void clear(const Color& color);
-    void show();
+    void clear(const Color& color) const;
+    void show() const;
 
     void drawChar(const Character& character, int x, int y, float scale, const Color& color);
 
@@ -31,15 +31,15 @@ public:
     void drawTexture(const Texture& texture, const Rect& source, int x, int y, int width, int height,
                      bool flipX = false, bool flipY = false, float rotation = 0.0f,
                      const Color& colorFilter = Color(255, 255, 255, 255),
-                     const Point& rotationalCenter = Point(INT_MAX, INT_MAX));
+                     const SML_Point& rotationalCenter = SML_Point(INT_MAX, INT_MAX));
     void drawRect(int x, int y, int width, int height, const Color& color, bool fill = true, float rotation = 0.0f,
-                  const Point& rotationalCenter = Point(INT_MAX, INT_MAX));
+                  const SML_Point& rotationalCenter = SML_Point(INT_MAX, INT_MAX));
     void drawCircle(int x, int y, int radius, const Color& color, bool fill = true, int lineWidth = 1);
 
     void setViewport(const Rect& rect);
 
     Rect getViewport();
-    Point getViewportSize();
+    SML_Point getViewportSize();
 
 private:
     Window& window;

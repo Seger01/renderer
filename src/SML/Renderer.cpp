@@ -72,13 +72,13 @@ Renderer::Renderer(Window& window) : window(window)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Renderer::clear(const Color& color)
+void Renderer::clear(const Color& color) const
 {
     glClearColor(color.normalize().r, color.normalize().g, color.normalize().b, color.normalize().a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::show() { glfwSwapBuffers(window.getWindow()); }
+void Renderer::show() const { glfwSwapBuffers(window.getWindow()); }
 
 void Renderer::drawChar(const Character& character, int x, int y, float scale, const Color& color) {}
 
@@ -88,7 +88,7 @@ void Renderer::renderText(const Font& font, const std::string& text, int x, int 
     fontShader.use();
     fontShader.setInt("texture1", 0);
 
-    Point viewportSize = getViewportSize();
+    SML_Point viewportSize = getViewportSize();
 
     glm::mat4 projection = glm::ortho(0.0f, (float)viewportSize.x, (float)viewportSize.y, 0.0f, -1.0f, 1.0f);
 
@@ -125,14 +125,14 @@ void Renderer::renderText(const Font& font, const std::string& text, int x, int 
 }
 
 void Renderer::drawTexture(const Texture& texture, const Rect& source, int x, int y, int width, int height, bool flipX,
-                           bool flipY, float rotation, const Color& colorFilter, const Point& rotationalCenter)
+                           bool flipY, float rotation, const Color& colorFilter, const SML_Point& rotationalCenter)
 {
     texturedQuad.bindVAO();
     texture.activate();
     texturedQuadShader.use();
     texturedQuadShader.setInt("texture1", 0);
 
-    Point viewportSize = getViewportSize();
+    SML_Point viewportSize = getViewportSize();
 
     glm::mat4 projection = glm::ortho(0.0f, (float)viewportSize.x, (float)viewportSize.y, 0.0f, -1.0f, 1.0f);
     glm::mat4 model = glm::mat4(1.0f);
@@ -176,14 +176,14 @@ void Renderer::drawTexture(const Texture& texture, const Rect& source, int x, in
 }
 
 void Renderer::drawRect(int x, int y, int width, int height, const Color& color, bool fill, float rotation,
-                        const Point& rotationalCenter)
+                        const SML_Point& rotationalCenter)
 {
     if (fill)
         texturedQuad.bindVAO();
     else
         unfilledBox.bindVAO();
 
-    Point viewportSize = getViewportSize();
+    SML_Point viewportSize = getViewportSize();
 
     rectShader.use();
 
@@ -224,7 +224,7 @@ void Renderer::drawCircle(int x, int y, int radius, const Color& color, bool fil
 {
     texturedQuad.bindVAO();
 
-    Point viewportSize = getViewportSize();
+    SML_Point viewportSize = getViewportSize();
 
     circleShader.use();
 
@@ -268,10 +268,10 @@ Rect Renderer::getViewport()
     return Rect(viewport[0], viewport[1], viewport[2], viewport[3]);
 }
 
-Point Renderer::getViewportSize()
+SML_Point Renderer::getViewportSize()
 {
     Rect viewport = getViewport();
-    return Point(viewport.w, viewport.h);
+    return SML_Point(viewport.w, viewport.h);
 }
 
 } // namespace SML

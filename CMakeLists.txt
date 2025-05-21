@@ -10,9 +10,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Define paths
-# set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-# set(INC_DIR ${CMAKE_SOURCE_DIR}/inc)
-# set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/external)
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 set(EXTERNAL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external)
@@ -20,7 +17,6 @@ set(SHADER_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/shaders_h)
 
 # Include directories
 include_directories(${INC_DIR} ${SHADER_INC_DIR})
-
 # Collect all source files recursively
 file(GLOB_RECURSE SOURCES ${SRC_DIR}/*.cpp ${SRC_DIR}/*.c)
 
@@ -44,24 +40,11 @@ foreach(dep ${EXTERNAL_PROJECTS})
     endif()
 endforeach()
 
-# file(GLOB EXTERNAL_PROJECTS RELATIVE ${EXTERNAL_DIR} ${EXTERNAL_DIR}/*)
-#
-# foreach(EXTERNAL_PROJECT ${EXTERNAL_PROJECTS})
-#     if(EXISTS ${EXTERNAL_DIR}/${EXTERNAL_PROJECT}/CMakeLists.txt)
-#         # Always specify binary dir if it's outside the current source dir
-#         add_subdirectory(
-#             ${EXTERNAL_DIR}/${EXTERNAL_PROJECT}
-#             ${CMAKE_BINARY_DIR}/external_build/${EXTERNAL_PROJECT}
-#         )
-#     endif()
-# endforeach()
-
-
 # Find OpenGL
 find_package(OpenGL REQUIRED)
 
 # Link external libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw OpenGL::GL glm freetype)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw OpenGL::GL glm freetype)
 
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
     set(COMPILE_COMMANDS_OUTPUT_DIR "${CMAKE_SOURCE_DIR}")

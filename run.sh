@@ -19,4 +19,4 @@ fi
 
 cd .. || exit 1
 
-./build/bin/indproj
+./build/renderer_app

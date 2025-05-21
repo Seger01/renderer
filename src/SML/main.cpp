@@ -98,14 +98,14 @@ int main()
 
         renderer.drawRect(100, 100, 200, 200, SML::Color(0, 255, 0, 255), true, 0);
         renderer.drawRect(100, 300, 200, 200, SML::Color(0, 0, 255), false, int(SML::Time::ticks / 10 * 2400) % 360,
-                          SML::Point(400, 400));
+                          SML::SML_Point(400, 400));
         renderer.drawRect(300, 100, 200, 200, SML::Color(255, 255, 0), false, int(SML::Time::ticks / 10 * 800) % 360,
-                          SML::Point(0, 0));
+                          SML::SML_Point(0, 0));
 
         renderer.setViewport(SML::Rect());
 
         renderer.drawRect(300, 300, 200, 200, SML::Color(255, 0, 255, 150), false,
-                          int(SML::Time::ticks / 10 * 500) % 360, SML::Point(0, 0));
+                          int(SML::Time::ticks / 10 * 500) % 360, SML::SML_Point(0, 0));
 
         RGB hue = hueToRGB(int(SML::Time::ticks / 10 * 1000) % 360);
         renderer.drawTexture(matrixTexture, SML::Rect(), 600, 600, 200, 200, false, false,

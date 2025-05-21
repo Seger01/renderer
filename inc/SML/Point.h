@@ -1,24 +1,33 @@
-/**
+/**point
  * @file Point.h
  * @brief This file contains the definition of the Point struct.
  */
-
-#ifndef POINT_H
-#define POINT_H
+#pragma once
 
 namespace SML
 {
 
-/**
- * @struct Point
- * @brief Represents a 2D point.
- */
-struct Point
+class SML_Point
 {
-    int x = 0;
-    int y = 0;
+public:
+    SML_Point() : x(0), y(0) {}
+
+    SML_Point(int x = 0, int y = 0) : x(x), y(y) {}
+
+    SML_Point(const SML_Point& other) : x(other.x), y(other.y) {}
+
+    SML_Point& operator=(const SML_Point& other)
+    {
+        if (this != &other)
+        {
+            x = other.x;
+            y = other.y;
+        }
+        return *this;
+    }
+
+    int x;
+    int y;
 };
 
 } // namespace SML
-
-#endif

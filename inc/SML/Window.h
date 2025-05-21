@@ -21,7 +21,7 @@ public:
     void clear(const Color& color);
     void show();
 
-    Point getWindowSize();
+    SML_Point getWindowSize();
 
     bool shouldClose();
 
