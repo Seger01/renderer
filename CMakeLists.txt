@@ -20,15 +20,23 @@ include_directories(${INC_DIR} ${SHADER_INC_DIR})
 # Collect all source files recursively
 file(GLOB_RECURSE SOURCES ${SRC_DIR}/*.cpp ${SRC_DIR}/*.c)
 
-# Set the output directory for the executable
+# Set the output directory for the library/executable
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-# Add the executable
-add_library(${PROJECT_NAME} STATIC ${SOURCES})
-
-target_include_directories(${PROJECT_NAME}
-    PUBLIC ${INC_DIR}
-)
+# Detect if included as a subproject
+if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+    # Top-level project: build as executable
+    add_executable(${PROJECT_NAME} ${SOURCES})
+    target_include_directories(${PROJECT_NAME}
+        PUBLIC ${INC_DIR}
+    )
+else()
+    # Submodule: build as library
+    add_library(${PROJECT_NAME} STATIC ${SOURCES})
+    target_include_directories(${PROJECT_NAME}
+        PUBLIC ${INC_DIR}
+    )
+endif()
 
 file(GLOB EXTERNAL_PROJECTS RELATIVE ${EXTERNAL_DIR} ${EXTERNAL_DIR}/*)
 foreach(dep ${EXTERNAL_PROJECTS})
