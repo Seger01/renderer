@@ -3,8 +3,7 @@
  * @brief Defines the Vector2 struct.
  */
 
-#ifndef VECTOR2_H
-#define VECTOR2_H
+#pragma once
 
 namespace SML
 {
@@ -110,5 +109,3 @@ struct Vector2
 };
 
 } // namespace SML
-
-#endif

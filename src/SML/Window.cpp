@@ -18,15 +18,11 @@ namespace SML
 
 Window::Window(int width, int height) : mScreenWidth(width), mScreenHeight(height)
 {
-    std::cout << "Window constructor renderer called" << std::endl;
-
     if (!glfwInit())
     {
         std::cout << "GLFW failed to initialize" << std::endl;
         return;
     }
-    std::cout << "GLFW initialized" << std::endl;
-
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -44,7 +40,6 @@ Window::Window(int width, int height) : mScreenWidth(width), mScreenHeight(heigh
         glfwTerminate();
         return;
     }
-    std::cout << "Window created" << std::endl;
 
     glfwMakeContextCurrent(window);
 
@@ -59,51 +54,8 @@ Window::Window(int width, int height) : mScreenWidth(width), mScreenHeight(heigh
         std::cout << "Failed to initialize GLAD" << std::endl;
         return;
     }
-    std::cout << "GLAD loaded" << std::endl;
 
     stbi_set_flip_vertically_on_load(true);
-    //     std::cout << "Window constructor renderer called" << std::endl;
-    //
-    //     // glfw: initialize and configure
-    //     // ------------------------------
-    //     glfwInit();
-    //
-    //     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    //     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    //     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //
-    // #ifdef __APPLE__
-    //     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    // #endif
-    //
-    //     // glfw window creation
-    //     // --------------------
-    //     window = glfwCreateWindow(mScreenWidth, mScreenHeight, "FMLWindow", NULL, NULL);
-    //     if (window == NULL)
-    //     {
-    //         std::cout << "Failed to create GLFW window" << std::endl;
-    //         glfwTerminate();
-    //         return;
-    //     }
-    //
-    //     glfwMakeContextCurrent(window);
-    //     // glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    //
-    //     auto lambda = [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); };
-    //     void (*funcPtr)(GLFWwindow*, int, int) = +lambda; // The `+` forces a function pointer conversion
-    //     glfwSetFramebufferSizeCallback(window, funcPtr);
-    //
-    //     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    //
-    //     // glad: load all OpenGL function pointers
-    //     // ---------------------------------------
-    //     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    //     {
-    //         std::cout << "Failed to initialize GLAD" << std::endl;
-    //         return;
-    //     }
-    //
-    //     stbi_set_flip_vertically_on_load(true);
 }
 
 void Window::clear(const Color& color)

@@ -14,6 +14,13 @@ public:
     Texture();
     Texture(const std::string& filePath);
     Texture(const std::vector<char>& data, const Vector2& size);
+
+    // Rule of Five
+    Texture(const Texture& other);                // Copy constructor
+    Texture& operator=(const Texture& other);     // Copy assignment
+    Texture(Texture&& other) noexcept;            // Move constructor
+    Texture& operator=(Texture&& other) noexcept; // Move assignment
+
     ~Texture();
 
     void activate() const;
@@ -23,6 +30,7 @@ public:
 
 private:
     void loadTexture();
+    void freeTexture();
 
 private:
     bool loaded;

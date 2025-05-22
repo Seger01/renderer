@@ -19,4 +19,4 @@ fi
 
 cd .. || exit 1
 
-./build/renderer_app
+./build/renderer

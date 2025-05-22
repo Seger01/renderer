@@ -7,46 +7,90 @@
 
 namespace SML
 {
-Texture::Texture() : loaded(false) {}
 
-Texture::Texture(const std::string& filePath) : mFilePath(filePath), loaded(false) { loadTexture(); }
+Texture::Texture() : loaded(false), mTextureID(0) {}
 
-Texture::Texture(const std::vector<char>& data, const Vector2& size) : mSize(size), loaded(false)
+Texture::Texture(const std::string& filePath) : mFilePath(filePath), loaded(false), mTextureID(0) { loadTexture(); }
+
+Texture::Texture(const std::vector<char>& data, const Vector2& size) : mSize(size), loaded(false), mTextureID(0)
 {
-    // generate texture
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
-
-    unsigned int textureID;
-
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    // (as before)
+    std::cout << "Loading texture from data..." << std::endl;
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glGenTextures(1, &mTextureID);
+    glBindTexture(GL_TEXTURE_2D, mTextureID);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, size.x, size.y, 0, GL_RED, GL_UNSIGNED_BYTE, data.data());
-    // set texture options
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // glBindTexture(GL_TEXTURE_2D, textureID);
-    // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
-    // glGenerateMipmap(GL_TEXTURE_2D);
-    //
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    //
-    mTextureID = textureID;
     loaded = true;
 }
 
-// Added destructor to free up OpenGL texture resource
-Texture::~Texture()
+Texture::~Texture() { freeTexture(); }
+
+void Texture::freeTexture()
 {
     if (loaded && mTextureID != 0)
     {
         glDeleteTextures(1, &mTextureID);
+        mTextureID = 0;
+        loaded = false;
     }
+}
+
+// Copy constructor (deep copy)
+Texture::Texture(const Texture& other) : mSize(other.mSize), mFilePath(other.mFilePath), loaded(false), mTextureID(0)
+{
+    if (other.loaded)
+    {
+        std::cout << "DEEP COPY VERY WRONG" << std::endl;
+    }
+}
+
+// Copy assignment (deep copy)
+Texture& Texture::operator=(const Texture& other)
+{
+    if (this == &other)
+        return *this; // self-assignment check
+    freeTexture();
+    mSize = other.mSize;
+    mFilePath = other.mFilePath;
+    loaded = false;
+    mTextureID = 0;
+    if (other.loaded)
+    {
+        if (!other.mFilePath.empty())
+        {
+            loadTexture();
+        }
+    }
+    return *this;
+}
+
+// Move constructor
+Texture::Texture(Texture&& other) noexcept
+    : mTextureID(other.mTextureID), mSize(std::move(other.mSize)), mFilePath(std::move(other.mFilePath)),
+      loaded(other.loaded)
+{
+    other.mTextureID = 0;
+    other.loaded = false;
+}
+
+// Move assignment
+Texture& Texture::operator=(Texture&& other) noexcept
+{
+    if (this == &other)
+        return *this;
+    freeTexture();
+    mTextureID = other.mTextureID;
+    mSize = std::move(other.mSize);
+    mFilePath = std::move(other.mFilePath);
+    loaded = other.loaded;
+
+    other.mTextureID = 0;
+    other.loaded = false;
+    return *this;
 }
 
 void Texture::activate() const
