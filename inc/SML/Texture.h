@@ -28,6 +28,8 @@ public:
     unsigned int getTextureID() const;
     Vector2 getSize() const;
 
+    std::string getFilePath() const;
+
 private:
     void loadTexture();
     void freeTexture();

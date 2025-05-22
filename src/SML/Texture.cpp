@@ -14,8 +14,6 @@ Texture::Texture(const std::string& filePath) : mFilePath(filePath), loaded(fals
 
 Texture::Texture(const std::vector<char>& data, const Vector2& size) : mSize(size), loaded(false), mTextureID(0)
 {
-    // (as before)
-    std::cout << "Loading texture from data..." << std::endl;
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGenTextures(1, &mTextureID);
     glBindTexture(GL_TEXTURE_2D, mTextureID);
@@ -171,5 +169,7 @@ void Texture::loadTexture()
         stbi_image_free(data);
     }
 }
+
+std::string Texture::getFilePath() const { return mFilePath; }
 
 } // namespace SML

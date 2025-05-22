@@ -59,19 +59,11 @@ public:
                 face->glyph->bitmap.buffer + face->glyph->bitmap.width * face->glyph->bitmap.rows);
 
             Vector2 glyphSize(face->glyph->bitmap.width, face->glyph->bitmap.rows);
-            // std::cout << "creating texture for char in Font" << std::endl;
-            // Texture tex(data, glyphSize);
-            std::cout << "Before charset assignement" << std::endl;
+
             charSet[c].texture = Texture(data, glyphSize);
             charSet[c].Size = glyphSize;
             charSet[c].Bearing = Vector2(face->glyph->bitmap_left, face->glyph->bitmap_top);
             charSet[c].Advance = static_cast<unsigned int>(face->glyph->advance.x);
-            // charSet[c] = {Texture(data, glyphSize), glyphSize,
-            //               Vector2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-            //               static_cast<unsigned int>(face->glyph->advance.x)};
-            // charSet[c] = {tex, glyphSize, Vector2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-            //               static_cast<unsigned int>(face->glyph->advance.x)};
-            std::cout << "After charset assignement" << std::endl;
         }
 
         FT_Done_Face(face);

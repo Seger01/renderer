@@ -1,5 +1,7 @@
 #!/bin/bash
 
+./translate_shaders.sh
+
 mkdir build &> /dev/null
 
 cd build || exit 1

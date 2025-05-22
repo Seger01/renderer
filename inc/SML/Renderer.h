@@ -40,6 +40,7 @@ public:
 
     Rect getViewport();
     SML_Point getViewportSize();
+    SML_Point calculateTextSize(const Font& font, const std::string& text) const;
 
 private:
     Window& window;

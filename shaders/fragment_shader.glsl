@@ -14,5 +14,13 @@ uniform int flipY;
 
 void main()
 {
-    FragColor = texture(texture1, vec2((TexCoords.x * flipX * source.z) + source.x, (TexCoords.y * flipY * source.w) + source.y)) * colorFilter;
+    float u = TexCoords.x;
+    float v = TexCoords.y;
+    if (flipX == 1) u = 1.0 - u;
+    if (flipY == 1) v = 1.0 - v;
+
+    float textureCoordX = (source.z * u) + source.x;
+    float textureCoordY = (source.w * v) + source.y;
+
+    FragColor = texture(texture1, vec2(textureCoordX, textureCoordY)) * colorFilter;
 }

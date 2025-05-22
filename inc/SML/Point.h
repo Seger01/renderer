@@ -12,7 +12,7 @@ class SML_Point
 public:
     SML_Point() : x(0), y(0) {}
 
-    SML_Point(int x = 0, int y = 0) : x(x), y(y) {}
+    SML_Point(int x, int y) : x(x), y(y) {}
 
     SML_Point(const SML_Point& other) : x(other.x), y(other.y) {}
 

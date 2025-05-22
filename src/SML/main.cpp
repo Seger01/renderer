@@ -78,7 +78,11 @@ int main()
 
     SML::Renderer renderer(window);
     // FMLTexture matrixTexture("resources/matrix.jpg");
-    SML::Texture matrixTexture("resources/DinoSprites.png");
+    SML::Texture dinoTexture("resources/DinoSprites.png");
+    SML::Texture UITexture("resources/ui_images.png");
+    // SpriteDef buttonSpriteDef = {"UI/ui_images.png", Rect{145, 81, 46, 14}, 46, 14};
+
+    std::cout << "UI texture size: " << UITexture.getSize().x << " " << UITexture.getSize().y << std::endl;
 
     SML::Font font("resources/fonts/joystixmonospace.otf", 48);
 
@@ -108,8 +112,11 @@ int main()
                           int(SML::Time::ticks / 10 * 500) % 360, SML::SML_Point(0, 0));
 
         RGB hue = hueToRGB(int(SML::Time::ticks / 10 * 1000) % 360);
-        renderer.drawTexture(matrixTexture, SML::Rect(), 600, 600, 200, 200, false, false,
-                             int(SML::Time::ticks / 10 * 1000) % 360, SML::Color(hue.r, hue.g, hue.b, 255));
+        // renderer.drawTexture(dinoTexture, SML::Rect(0, 0, 40, 40), 600, 600, 200, 200, false, false);
+        // renderer.drawTexture(dinoTexture, SML::Rect(0, 0, 40, 40), 600, 600, 200, 200, false, false,
+        //                      int(SML::Time::ticks / 10 * 1000) % 360, SML::Color(hue.r, hue.g, hue.b, 255));
+
+        renderer.drawTexture(UITexture, SML::Rect(145, 81, 46, 14), 100, 100, 460, 140, false, false, 0);
 
         renderer.drawCircle(300, 300, 400, SML::Color(hue.r, hue.g, hue.b), false,
                             400 - (int(SML::Time::ticks / 10 * 1000) % 400));

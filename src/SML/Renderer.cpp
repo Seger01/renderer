@@ -104,9 +104,9 @@ void Renderer::renderText(const Font& font, const std::string& text, int x, int 
 
         glm::mat4 model = glm::mat4(1.0f);
 
-        model = glm::translate(model, glm::vec3(x, y, 0.0f));
         int width = ch.Size.x * scale;
         int height = ch.Size.y * scale;
+        model = glm::translate(model, glm::vec3(x + (width / 2), y + (height / 2), 0.0f));
 
         model = glm::scale(model, glm::vec3(width, height, 1.0f));
 
@@ -131,6 +131,9 @@ void Renderer::drawTexture(const Texture& texture, const Rect& source, int x, in
     texture.activate();
     texturedQuadShader.use();
     texturedQuadShader.setInt("texture1", 0);
+
+    y = y + height / 2;
+    x = x + width / 2;
 
     SML_Point viewportSize = getViewportSize();
 
@@ -162,15 +165,32 @@ void Renderer::drawTexture(const Texture& texture, const Rect& source, int x, in
     }
     else
     {
-        texturedQuadShader.setVec4(
-            "source", glm::vec4(((float)source.x) / texture.getSize().x, ((float)source.y - 1) / texture.getSize().y,
-                                (float)source.w / texture.getSize().x, (float)source.h / texture.getSize().y));
+        // float normalizedX = ((float)source.x + (float)source.w) / (float)texture.getSize().x;
+        // // If your source.y is from the TOP, convert it like this:
+        // float normalizedY = 1.0f - ((float)source.y + (float)source.h) / (float)texture.getSize().y;
+        // float normalizedW = ((float)source.w) / (float)texture.getSize().x;
+        // float normalizedH = ((float)source.h) / (float)texture.getSize().y;
+        float texHeight = (float)texture.getSize().y;
+        float normalizedX = (float)source.x / (float)texture.getSize().x;
+        float normalizedY = (texHeight - (float)source.y - (float)source.h) / texHeight;
+        float normalizedW = (float)source.w / (float)texture.getSize().x;
+        float normalizedH = (float)source.h / (float)texture.getSize().y;
+
+        texturedQuadShader.setVec4("source", glm::vec4(normalizedX, normalizedY, normalizedW, normalizedH));
+
+        // texturedQuadShader.setVec4("source", glm::vec4(normalizedX, normalizedY, normalizedW, normalizedH));
+        // std::cout << "Debug output calculated source values: " << ((float)source.x) / (float)texture.getSize().x << "
+        // "
+        //           << ((float)source.y) / (float)texture.getSize().y << " "
+        //           << (float)source.w / (float)texture.getSize().x << " " << (float)source.h /
+        //           (float)texture.getSize().y
+        //           << std::endl;
     }
 
-    texturedQuadShader.setInt("flipX", flipX ? -1 : 1);
-    texturedQuadShader.setInt("flipY", flipY ? 1 : -1);
-    texturedQuadShader.setVec4("colorFilter", glm::vec4(colorFilter.normalize().r, colorFilter.normalize().g,
-                                                        colorFilter.normalize().b, colorFilter.normalize().a));
+    texturedQuadShader.setInt("flipX", flipX ? 1 : -1);
+    texturedQuadShader.setInt("flipY", flipY ? -1 : 1);
+    texturedQuadShader.setVec4(
+        "colorFilter", glm::vec4(colorFilter.normalize().r, colorFilter.normalize().g, colorFilter.normalize().b, 1));
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
@@ -272,6 +292,25 @@ SML_Point Renderer::getViewportSize()
 {
     Rect viewport = getViewport();
     return SML_Point(viewport.w, viewport.h);
+}
+
+SML_Point Renderer::calculateTextSize(const Font& font, const std::string& text) const
+{
+    SML_Point size;
+    size.x = 0;
+    size.y = 0;
+
+    for (const char& c : text)
+    {
+        const Character& ch = font.charSet[c];
+        size.x += (ch.Advance >> 6);
+        if (ch.Size.y > size.y)
+            size.y = ch.Size.y;
+    }
+
+    std::cout << "Calculated text size: " << size.x << " " << size.y << std::endl;
+
+    return size;
 }
 
 } // namespace SML

@@ -3,8 +3,7 @@
  * @brief Defines the Rect struct.
  */
 
-#ifndef RECT_H
-#define RECT_H
+#pragma once
 
 namespace SML
 {
@@ -34,5 +33,3 @@ public:
 };
 
 } // namespace SML
-
-#endif
