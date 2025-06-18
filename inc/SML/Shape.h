@@ -14,7 +14,7 @@ public:
 
     void loadVertices(std::vector<float> vertices);
 
-    void bindVAO();
+    void bindVAO() const;
 
 protected:
     unsigned int VBO, VAO;

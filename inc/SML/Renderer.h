@@ -6,9 +6,12 @@
 #include "Color.h"
 #include "Point.h"
 #include "Shader.h"
+#include "SimpleQuad.h"
 #include "Texture.h"
 #include "TexturedQuad.h"
 #include "UnfilledBox.h"
+
+#include "SML/FrameBuffer.h"
 
 namespace SML
 {
@@ -22,7 +25,7 @@ public:
     Renderer(Window& window);
     virtual ~Renderer() = default;
 
-    void clear(const Color& color) const;
+    void clear(const Color& color);
     void show() const;
 
     void drawChar(const Character& character, int x, int y, float scale, const Color& color);
@@ -49,9 +52,13 @@ private:
     Shader texturedQuadShader;
     Shader rectShader;
     Shader circleShader;
+    Shader frameBufferShader;
 
     TexturedQuad texturedQuad;
     UnfilledBox unfilledBox;
+    SimpleQuad simpleQuad;
+
+    FrameBuffer frameBuffer;
 };
 
 } // namespace SML

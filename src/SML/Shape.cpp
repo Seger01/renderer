@@ -52,6 +52,6 @@ void Shape::loadVertices(std::vector<float> vertices)
     glEnableVertexAttribArray(1);
 }
 
-void Shape::bindVAO() { glBindVertexArray(VAO); }
+void Shape::bindVAO() const { glBindVertexArray(VAO); }
 
 } // namespace SML

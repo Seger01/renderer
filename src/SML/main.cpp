@@ -82,8 +82,6 @@ int main()
     SML::Texture UITexture("resources/ui_images.png");
     // SpriteDef buttonSpriteDef = {"UI/ui_images.png", Rect{145, 81, 46, 14}, 46, 14};
 
-    std::cout << "UI texture size: " << UITexture.getSize().x << " " << UITexture.getSize().y << std::endl;
-
     SML::Font font("resources/fonts/joystixmonospace.otf", 48);
 
     SML::Time::initialize();
@@ -96,17 +94,15 @@ int main()
         // -----
         // processInput(window);
 
-        renderer.clear(SML::Color(100, 100, 100));
+        renderer.clear(SML::Color(0, 0, 0));
 
-        renderer.setViewport(SML::Rect(200, 200, 10000, 10000));
-
-        renderer.drawRect(100, 100, 200, 200, SML::Color(0, 255, 0, 255), true, 0);
+        renderer.drawRect(100, 100, 200, 200, SML::Color(0, 255, 0), true, 0);
         renderer.drawRect(100, 300, 200, 200, SML::Color(0, 0, 255), false, int(SML::Time::ticks / 10 * 2400) % 360,
                           SML::SML_Point(400, 400));
         renderer.drawRect(300, 100, 200, 200, SML::Color(255, 255, 0), false, int(SML::Time::ticks / 10 * 800) % 360,
                           SML::SML_Point(0, 0));
 
-        renderer.setViewport(SML::Rect());
+        // renderer.setViewport(SML::Rect());
 
         renderer.drawRect(300, 300, 200, 200, SML::Color(255, 0, 255, 150), false,
                           int(SML::Time::ticks / 10 * 500) % 360, SML::SML_Point(0, 0));
@@ -118,8 +114,8 @@ int main()
 
         renderer.drawTexture(UITexture, SML::Rect(145, 81, 46, 14), 100, 100, 460, 140, false, false, 0);
 
-        renderer.drawCircle(300, 300, 400, SML::Color(hue.r, hue.g, hue.b), false,
-                            400 - (int(SML::Time::ticks / 10 * 1000) % 400));
+        renderer.drawCircle(300, 300, 200, SML::Color(hue.r, hue.g, hue.b), false,
+                            200 - (int(SML::Time::ticks / 10 * 1000) % 200));
 
         // renderer.drawChar(font.charSet['a'], 'a', 100, 100, 1.0f, SML::Color(255,
         // 255, 255)); renderer.renderText(font, "He", 100, 100, 1.0f,

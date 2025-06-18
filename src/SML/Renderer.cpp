@@ -18,6 +18,7 @@
 #include <string>
 
 #include "SML/Color.h"
+#include "SML/FrameBuffer.h"
 #include "SML/Rect.h"
 #include "SML/Renderer.h"
 #include "SML/Shader.h"
@@ -31,7 +32,7 @@ namespace SML
 //   circleShader("shaders/circle/vertex_shader.glsl", "shaders/circle/fragment_shader.glsl"),
 //   fontShader("shaders/font_shader/vertex_shader.glsl", "shaders/font_shader/fragment_shader.glsl"), window(window)
 
-Renderer::Renderer(Window& window) : window(window)
+Renderer::Renderer(Window& window) : window(window), frameBuffer(window.getWindowSize().x, window.getWindowSize().y)
 {
     const std::string texturedQuadVertexShader =
 #include "vertex_shader.h"
@@ -57,11 +58,24 @@ Renderer::Renderer(Window& window) : window(window)
     const std::string fontFragmentShader =
 #include "font_shader/fragment_shader.h"
         ;
+    const std::string frameBufferVertexShader =
+#include "frame_buffer_shader/vertex_shader.h"
+        ;
+    const std::string frameBufferFragmentShader =
+#include "frame_buffer_shader/fragment_shader.h"
+        ;
+    //     const std::string frameBufferVertexShader =
+    // #include "frame_buffer_shader_edge/vertex_shader.h"
+    //         ;
+    //     const std::string frameBufferFragmentShader =
+    // #include "frame_buffer_shader_edge/fragment_shader.h"
+    //         ;
 
     texturedQuadShader = Shader(texturedQuadVertexShader, texturedQuadFragmentShader);
     rectShader = Shader(rectVertexShader, rectFragmentShader);
     circleShader = Shader(circleVertexShader, circleFragmentShader);
     fontShader = Shader(fontVertexShader, fontFragmentShader);
+    frameBufferShader = Shader(frameBufferVertexShader, frameBufferFragmentShader);
 
     texturedQuadShader.use();
     texturedQuadShader.setInt("texture1", 0);
@@ -69,16 +83,35 @@ Renderer::Renderer(Window& window) : window(window)
     glDisable(GL_DEPTH_TEST);
 
     glEnable(GL_BLEND);
+    glEnable(GL_MULTISAMPLE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Renderer::clear(const Color& color) const
+void Renderer::clear(const Color& color)
 {
+    frameBuffer.resize(window.getWindowSize().x, window.getWindowSize().y);
+    // Bind the framebuffer if you want to clear it
+    frameBuffer.bind();
+
     glClearColor(color.normalize().r, color.normalize().g, color.normalize().b, color.normalize().a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::show() const { glfwSwapBuffers(window.getWindow()); }
+void Renderer::show() const
+{
+    // second pass
+    glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    frameBufferShader.use();
+    simpleQuad.bindVAO();
+    glDisable(GL_DEPTH_TEST);
+    glBindTexture(GL_TEXTURE_2D, frameBuffer.getTexture());
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glfwSwapBuffers(window.getWindow());
+}
 
 void Renderer::drawChar(const Character& character, int x, int y, float scale, const Color& color) {}
 
@@ -203,6 +236,9 @@ void Renderer::drawRect(int x, int y, int width, int height, const Color& color,
     else
         unfilledBox.bindVAO();
 
+    y = y + height / 2;
+    x = x + width / 2;
+
     SML_Point viewportSize = getViewportSize();
 
     rectShader.use();
@@ -254,7 +290,7 @@ void Renderer::drawCircle(int x, int y, int radius, const Color& color, bool fil
 
     model = glm::translate(model, glm::vec3(x, y, 0.0f));
 
-    model = glm::scale(model, glm::vec3(radius, radius, 1.0f));
+    model = glm::scale(model, glm::vec3(radius * 2, radius * 2, 1.0f));
 
     // Set shader uniforms
     circleShader.setMat4("model", model);

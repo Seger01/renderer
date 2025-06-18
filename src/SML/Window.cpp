@@ -18,6 +18,7 @@ namespace SML
 
 Window::Window(int width, int height) : mScreenWidth(width), mScreenHeight(height)
 {
+
     if (!glfwInit())
     {
         std::cout << "GLFW failed to initialize" << std::endl;
@@ -26,6 +27,7 @@ Window::Window(int width, int height) : mScreenWidth(width), mScreenHeight(heigh
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -43,7 +45,7 @@ Window::Window(int width, int height) : mScreenWidth(width), mScreenHeight(heigh
 
     glfwMakeContextCurrent(window);
 
-    auto lambda = [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); };
+    auto lambda = [](GLFWwindow* window, int width, int height) { /*  glViewport(0, 0, width, height);  */ };
     void (*funcPtr)(GLFWwindow*, int, int) = +lambda;
     glfwSetFramebufferSizeCallback(window, funcPtr);
 
