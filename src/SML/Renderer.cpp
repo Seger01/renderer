@@ -58,18 +58,18 @@ Renderer::Renderer(Window& window) : window(window), frameBuffer(window.getWindo
     const std::string fontFragmentShader =
 #include "font_shader/fragment_shader.h"
         ;
-    //     const std::string frameBufferVertexShader =
-    // #include "frame_buffer_shader/vertex_shader.h"
-    //         ;
-    //     const std::string frameBufferFragmentShader =
-    // #include "frame_buffer_shader/fragment_shader.h"
-    //         ;
     const std::string frameBufferVertexShader =
-#include "frame_buffer_shader_edge/vertex_shader.h"
+#include "frame_buffer_shader/vertex_shader.h"
         ;
     const std::string frameBufferFragmentShader =
-#include "frame_buffer_shader_edge/fragment_shader.h"
+#include "frame_buffer_shader/fragment_shader.h"
         ;
+    //     const std::string frameBufferVertexShader =
+    // #include "frame_buffer_shader_edge/vertex_shader.h"
+    //         ;
+    //     const std::string frameBufferFragmentShader =
+    // #include "frame_buffer_shader_edge/fragment_shader.h"
+    //         ;
 
     texturedQuadShader = Shader(texturedQuadVertexShader, texturedQuadFragmentShader);
     rectShader = Shader(rectVertexShader, rectFragmentShader);
@@ -344,7 +344,7 @@ SML_Point Renderer::calculateTextSize(const Font& font, const std::string& text)
             size.y = ch.Size.y;
     }
 
-    std::cout << "Calculated text size: " << size.x << " " << size.y << std::endl;
+    // std::cout << "Calculated text size: " << size.x << " " << size.y << std::endl;
 
     return size;
 }

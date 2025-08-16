@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 #include <SML/glad/glad.h>
 
 #include "GLFW/glfw3.h"
@@ -16,7 +18,7 @@ class Window
 {
 public:
     Window(int width, int height);
-    virtual ~Window() = default;
+    ~Window();
 
     void clear(const Color& color);
     void show();
@@ -27,12 +29,47 @@ public:
 
     GLFWwindow* getWindow() { return window; }
 
-private:
-    // static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+    void updateEvents();
 
+    bool* getKeyPresses();
+    bool* getKeyReleases();
+
+    bool* getMouseButtonsStates();
+
+    Vector2 getMousePosition();
+
+    bool getLeftMouseButtonDown();
+    bool getLeftMouseButtonUp();
+    bool getRightMouseButtonDown();
+    bool getRightMouseButtonUp();
+    bool getMiddleMouseButtonDown();
+    bool getMiddleMouseButtonUp();
+
+    // General keyboard event (press/release/repeat)
+    void onKey(int key, int scancode, int action, int mods);
+
+    // General mouse button event (press/release)
+    void onMouseButton(int button, int action, int mods);
+
+    // General mouse move event
+    void onCursorPos(double xpos, double ypos);
+
+    // General mouse scroll event
+    void onScroll(double xoffset, double yoffset);
+
+    // General character input (for text)
+    void onChar(unsigned int codepoint);
+
+private:
     GLFWwindow* window;
 
     int mScreenWidth, mScreenHeight;
+
+    float mouseX, mouseY;
+    bool keyPresses[512] = {0};
+    bool keyReleases[512] = {0};
+    bool mouseButtonDown[8] = {0};
+    bool mouseButtonUp[8] = {0};
 };
 
 } // namespace SML

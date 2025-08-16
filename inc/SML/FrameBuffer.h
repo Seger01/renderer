@@ -74,9 +74,14 @@ private:
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        {
             std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+        }
         else
-            std::cout << "Framebuffer created successfully!" << std::endl;
+        {
+            // std::cout << "Framebuffer created successfully!" << std::endl;
+        }
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
