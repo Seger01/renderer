@@ -136,6 +136,9 @@ void Window::updateEvents()
             keyPresses[i] = false; // Reset after processing
         if (keyReleases[i])
             keyReleases[i] = false; // Reset after processing
+    }
+    for (int i = 0; i < 8; i++)
+    {
         if (mouseButtonDown[i])
             mouseButtonDown[i] = false; // Reset after processing
         if (mouseButtonUp[i])

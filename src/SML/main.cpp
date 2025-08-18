@@ -132,10 +132,10 @@ int main()
 
         for (int i = 0; i < 512; ++i)
         {
-            if (presses[i])
-            {
-                std::cout << "Key Pressed: " << i << std::endl;
-            }
+            // if (presses[i])
+            // {
+            //     std::cout << "Key Pressed: " << i << std::endl;
+            // }
         }
 
         // wait 16ms to simulate 60fps
