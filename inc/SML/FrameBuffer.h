@@ -80,6 +80,7 @@ private:
         else
         {
             // std::cout << "Framebuffer created successfully!" << std::endl;
+            // std::cout << "Size : " << w << ", " << h << std::endl;
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);

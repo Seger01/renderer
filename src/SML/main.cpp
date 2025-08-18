@@ -95,7 +95,7 @@ int main()
         // processInput(window);
         window.updateEvents();
 
-        renderer.clear(SML::Color(0, 0, 0));
+        renderer.clear(SML::Color(200, 200, 0));
 
         renderer.drawRect(100, 100, 200, 200, SML::Color(0, 255, 0), true, 0);
         renderer.drawRect(100, 300, 200, 200, SML::Color(0, 0, 255), false, int(SML::Time::ticks / 10 * 2400) % 360,
@@ -103,7 +103,7 @@ int main()
         renderer.drawRect(300, 100, 200, 200, SML::Color(255, 255, 0), false, int(SML::Time::ticks / 10 * 800) % 360,
                           SML::SML_Point(0, 0));
 
-        // renderer.setViewport(SML::Rect());
+        renderer.setViewport(SML::Rect());
 
         renderer.drawRect(300, 300, 200, 200, SML::Color(255, 0, 255, 150), false,
                           int(SML::Time::ticks / 10 * 500) % 360, SML::SML_Point(0, 0));
